@@ -7,6 +7,11 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
 import Navbar from "./components/navbar/Navbar";
 import LeftBar from "./components/leftBar/LeftBar";
 import RightBar from "./components/rightBar/RightBar";
@@ -22,8 +27,12 @@ function App() {
 
   const { darkMode } = useContext(DarkModeContext);
 
+  const queryClient = new QueryClient()
+
+
   const Layout = () => {
     return (
+      <QueryClientProvider client={queryClient}>
       <div className={`theme-${darkMode ? "dark" : "light"}`}>
         <Navbar />
         <div style={{ display: "flex" }}>
@@ -34,6 +43,7 @@ function App() {
           <RightBar />
         </div>
       </div>
+      </QueryClientProvider>
     );
   };
 
